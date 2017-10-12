@@ -49,8 +49,8 @@ if args.probe == "j-link":
         executable = 'JLink.exe'
     else:
         executable = 'JLinkExe'
-        cmd = executable + ' -Device {} -if JTAG -CommanderScript {} '.format(args.device, command_path)
-        ret = os.system(cmd)
+    cmd = executable + ' -Device {} -if JTAG -CommanderScript {} '.format(args.device, command_path)
+    ret = os.system(cmd)
     if ret != 0:
         if os.name == 'nt':
             print "Error when calling J-Link executable. Please verify that JLink.exe has been added to the PATH"
