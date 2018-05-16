@@ -1,15 +1,12 @@
-# Embedded application template
+# Bosch Sensortec BMA280 example
 
-Usage:
-* Clone to `your-project-dir` and enter it
-* Edit readme file
-* Modify remote URL with:
-    ```sh
-    $ git remote set-url origin git@gitlab.com:catie_sixtron/your-project-name.git'
-    $ git push -u origin master
-    ```
-* Initialize with:
+This is a demonstration of using a Bosch Sensortec BMA280 accelerometer. The program 
+continuously prints X/Y/Z raw data from the accelerometer in m/s²
 
-    ```sh
-    $ mbed deploy
-    ```
+# Usage
+
+* Clone this repository
+* Deploy the different libraries
+* Compile and flash your board
+
+**Default baudrate** : 9600
