@@ -40,7 +40,7 @@ int main()
 
     while (true) {
         acceleration = bma280.acceleration();
-        printf("acceleration X = %.2f    acceleration Y = %.2f    acceleration Z = %.2f\n", acceleration.x, acceleration.y, acceleration.z);
+        printf("Acceleration (m/s²): %6.3f %6.3f %6.3f\n", acceleration.x, acceleration.y, acceleration.z);
         led1 = !led1;
         Thread::wait(PERIOD_MS);
     }
