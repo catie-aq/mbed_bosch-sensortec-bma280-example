@@ -42,6 +42,6 @@ int main()
         acceleration = bma280.acceleration();
         printf("Acceleration (m/s²): %6.3f %6.3f %6.3f\n", acceleration.x, acceleration.y, acceleration.z);
         led1 = !led1;
-        Thread::wait(PERIOD_MS);
+        ThisThread::sleep_for(PERIOD_MS);
     }
 }
