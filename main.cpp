@@ -34,9 +34,6 @@ bma280_acceleration_t acceleration;
 
 int main()
 {
-    // Prevent incorrect frequency detection from SWO Viewer
-    sleep_manager_lock_deep_sleep();
-    
     printf("BMA280 library example\n\n");
 
     if (!bma280.initialize(BMA280::Range::Range_4g, BMA280::Bandwidth::Bandwidth_62_50_Hz)) {
@@ -48,6 +45,8 @@ int main()
     while (true) {
         acceleration = bma280.acceleration();
         printf("Acceleration (m/s²): %6.3f %6.3f %6.3f\n", acceleration.x, acceleration.y, acceleration.z);
+        wait_us(5000); // Fix SWO artifacts
+
         led1 = !led1;
         ThisThread::sleep_for(PERIOD_MS);
     }
