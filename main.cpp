@@ -16,31 +16,37 @@
  */
 #include "bma280.h"
 #include "mbed.h"
+#include "swo.h"
 
 using namespace sixtron;
 
 namespace {
-#define PERIOD_MS 500
+#define PERIOD_MS 500ms
 }
 
+SWO swo;
+FileHandle *mbed::mbed_override_console(int) { return &swo; }
+
 static DigitalOut led1(LED1);
-static I2C i2c(I2C_SDA, I2C_SCL);
+static I2C i2c(I2C1_SDA, I2C1_SCL);
 static BMA280 bma280(&i2c);
 bma280_acceleration_t acceleration;
 
-// main() runs in its own thread in the OS
-// (note the calls to Thread::wait below for delays)
 int main()
 {
+    printf("BMA280 library example\n\n");
+
     if (!bma280.initialize(BMA280::Range::Range_4g, BMA280::Bandwidth::Bandwidth_62_50_Hz)) {
-        printf("failed to detect BMA280\n");
+        printf("Failed to detect BMA280\n");
         return -1;
     }
-    printf("Alive!\n");
+    printf("BMA280 initialized\n");
 
     while (true) {
         acceleration = bma280.acceleration();
         printf("Acceleration (m/s²): %6.3f %6.3f %6.3f\n", acceleration.x, acceleration.y, acceleration.z);
+        wait_us(5000); // Fix SWO artifacts
+
         led1 = !led1;
         ThisThread::sleep_for(PERIOD_MS);
     }
